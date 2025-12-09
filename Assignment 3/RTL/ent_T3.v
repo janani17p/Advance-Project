@@ -1,3 +1,5 @@
+// Trojan 3: info leakage
+
 module <module_name> (
     input  wire         clk,
     input  wire         rst_n,
@@ -71,5 +73,6 @@ module <module_name> (
 
     // Existing functionality output assignments remain unaltered
     assign normal_out = /* unchanged logic */;
+
 
 endmodule
