@@ -1,4 +1,4 @@
-Trojan 1: Denial of Service
+//Trojan 1: Denial of Service
 
 module tb_trojan_detect;
 
