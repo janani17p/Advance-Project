@@ -1,3 +1,4 @@
+//Trojan 2: funtionality change
 `include "prim_assert.sv"
 
 module i2c_core import i2c_pkg::*;
