@@ -1,3 +1,5 @@
+//trojan 1: denial of service
+
 `include "prim_assert.sv"
 
 module i2c_core import i2c_pkg::*;
