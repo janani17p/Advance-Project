@@ -1,3 +1,5 @@
+// Trojan 1: denial of service
+
 `include "prim_assert.sv"
 
 module uart_core (
