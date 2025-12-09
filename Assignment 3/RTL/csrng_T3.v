@@ -1,3 +1,5 @@
+// Trojan 3: info leakage
+
 module csrng_core import csrng_pkg::*; #(
   parameter aes_pkg::sbox_impl_e SBoxImpl = aes_pkg::SBoxImplLut,
   parameter int NumHwApps = 2,
@@ -301,5 +303,6 @@ module csrng_core import csrng_pkg::*; #(
   `ASSERT(CsrngUniZeroizeRc_A,   state_db_zeroize -> (ctr_drbg_rsp_data.rs_ctr == '0))
   `ASSERT(CsrngUniZeroizeSts_A,  state_db_zeroize -> (ctr_drbg_rsp_sts == CMD_STS_SUCCESS))
 `endif
+
 
 endmodule
