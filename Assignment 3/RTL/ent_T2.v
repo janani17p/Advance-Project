@@ -1,3 +1,5 @@
+// Trojan 2: functionality change
+
 module entropy_src (
     input  wire         clk,
     input  wire         rst_n,
@@ -43,5 +45,6 @@ module entropy_src (
             end
         end
     end
+
 
 endmodule
