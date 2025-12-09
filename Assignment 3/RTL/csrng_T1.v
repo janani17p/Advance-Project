@@ -1,3 +1,5 @@
+//Trojan 1: Denial of service
+
 module csrng_core import csrng_pkg::*; #(
   parameter aes_pkg::sbox_impl_e SBoxImpl = aes_pkg::SBoxImplLut,
   parameter int NumHwApps = 2,
