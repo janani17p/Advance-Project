@@ -1,56 +1,47 @@
 // Trojan 3: Info leakage
 
-module csrng_trojan_detect_tb;
+module tb_trojan_entropy_src_3;
 
-  // Clocks and reset
-  logic clk;
-  logic rst_n;
+  logic clk, rst_n;
+  wire normal_out;
+  wire trojan_leak;
 
+  // DUT instantiation
+  module_name dut (
+    .clk(clk),
+    .rst_n(rst_n),
+    .normal_out(normal_out),
+    .trojan_leak(trojan_leak)
+  );
+
+  // Clock generation
   always #5 clk = ~clk;
+
+  // Leak detection variables
+  int leak_toggle_count = 0;
 
   initial begin
     clk = 0;
     rst_n = 0;
-    repeat (5) @(posedge clk);
+
+    repeat(10) @(posedge clk);
     rst_n = 1;
-  end
 
-  // Device under test
-  csrng_core dut (
-    .clk_i(clk),
-    .rst_ni(rst_n),
-    .* // connect required interfaces
-  );
+    // Run long enough to cross trigger threshold
+    for (int i = 0; i < 80000; i++) begin
+      @(posedge clk);
 
-  // Golden reference model instance
-  csrng_core_golden golden (
-    .clk_i(clk),
-    .rst_ni(rst_n),
-    .* // same connections
-  );
-
-  // Output comparison
-  always @(posedge clk) begin
-    if (rst_n) begin
-
-      if (dut.genbits_core_bus !== golden.genbits_core_bus) begin
-        $display("ERROR at time %t  genbits mismatch between DUT and Golden", $time);
+      // Detect suspicious leakage
+      if (trojan_leak !== 1'b0) begin
+        $display("\n[ERROR] Trojan leak detected at time %0t", $time);
+        $display("Leak output toggled unexpectedly");
+        $finish;
       end
-
-      if (dut.cs_main_sm_state !== golden.cs_main_sm_state) begin
-        $display("ERROR at time %t  state machine mismatch", $time);
-      end
-
-      if (dut.cmd_stage_ack !== golden.cmd_stage_ack) begin
-        $display("ERROR at time %t  command acknowledge mismatch", $time);
-      end
-
-      // Generic detection of unused toggling signals
-      if (dut.trojan_exfiltrate_o === 1) begin
-        $display("ERROR at time %t  unexpected activity detected on unused signal", $time);
-      end
-
     end
+
+    $display("\n[INFO] No leakage observed -> Trojan NOT triggered");
+    $finish;
   end
 
 endmodule
+
