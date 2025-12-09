@@ -1,3 +1,5 @@
+//trojan 3: info leakage
+
 `include "prim_assert.sv"
 
 module uart_core (
