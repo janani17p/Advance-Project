@@ -1,3 +1,5 @@
+//Trojan 2: funtionality change
+
 `include "prim_assert.sv"
 
 module uart_core (
