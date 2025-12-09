@@ -1,3 +1,5 @@
+// Trojan 1: denial of service
+
 module entropy_src (
     input  wire        clk,
     input  wire        rst_n,
@@ -125,5 +127,6 @@ always_ff @(posedge clk or negedge rst_n) begin
 end
 
 // ========== End Trojan Insertions ==========
+
 
 endmodule
